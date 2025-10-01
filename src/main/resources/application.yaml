@@ -1,0 +1,35 @@
+management.endpoints.web.exposure.include: metrics, prometheus, health, configexposure
+management.endpoint:
+  health:
+    show-details: always
+    probes:
+      enabled: true
+      add-additional-paths: true
+
+springdoc:
+  api-docs:
+    version: openapi_3_0
+    path: /api-docs
+  swagger-ui:
+    url: ../api-docs
+    config-url: ../api-docs/swagger-config
+  #  config-url: ../api-docs/swagger-config
+
+spring:
+  application:
+    name: BA-007-my-bank
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    name: postgres
+
+
+
