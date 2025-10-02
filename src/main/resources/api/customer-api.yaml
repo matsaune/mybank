@@ -121,6 +121,9 @@ components:
         email:
           type: string
           format: email
+        personalIdNumber:
+          type: string
+          description: Unique personal identification number
         phoneNumber:
           type: string
         created:
@@ -136,6 +139,7 @@ components:
         - lastName
         - email
         - phoneNumber
+        - personalIdNumber
       properties:
         firstName:
           type: string
@@ -144,5 +148,8 @@ components:
         email:
           type: string
           format: email
+        personalIdNumber:
+          type: string
+          description: Unique personal identification number
         phoneNumber:
           type: string

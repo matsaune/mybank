@@ -1,6 +1,12 @@
-INSERT INTO CUSTOMER (ID, FIRST_NAME, LAST_NAME, EMAIL, PERSONAL_ID_NUMBER, PHONE_NUMBER, CREATED, UPDATED)
-VALUES
-    (nextval('customer_id_seq'), 'John', 'Doe', 'john.doe@example.com', '12345678901', '+4712345678', NOW(), NOW()),
-    (nextval('customer_id_seq'), 'Jane', 'Smith', 'jane.smith@example.com', '98765432109', '+4787654321', NOW(), NOW());
+-- Clear existing test data
+TRUNCATE TABLE CUSTOMER CASCADE;
 
-ALTER SEQUENCE customer_id_seq RESTART WITH 100;
+-- Insert test customers
+INSERT INTO CUSTOMER (ID, FIRST_NAME, LAST_NAME, EMAIL, PHONE_NUMBER, PERSONAL_ID_NUMBER, CREATED, UPDATED)
+VALUES
+    (1, 'Test', 'User', 'test.user@example.com', '+4711223344', '12345678901', NOW(), NOW()),
+    (2, 'Jane', 'Smith', 'jane.smith@example.com', '+4755667788', '23456789012', NOW(), NOW()),
+    (3, 'Bob', 'Johnson', 'bob.johnson@example.com', '+4799887766', '34567890123', NOW(), NOW());
+
+-- Reset the sequence
+ALTER SEQUENCE customer_id_seq RESTART WITH 4;
