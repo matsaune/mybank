@@ -5,25 +5,33 @@ description: 'This context file provides detailed guidance for creating REST ser
 
 # OpenAPI REST Service Development Context
 
-**Important**: Replace `app` in all package names with your specific application name (e.g., `mybank`, `trading`, `risk`, etc.).
-For example: `no.experis.bgo.app.controller` becomes `no.experis.bgo.mybank.controller` for the mybank project.
+## Package Naming
+- **Important**: Replace `app` in all package names with your specific application name (e.g., `mybank`, `trading`, `risk`, etc.)
+- Example: `no.experis.bgo.app.controller` becomes `no.experis.bgo.mybank.controller` for the mybank project
+- Follow these conventions to ensure consistency and maintainability across all services in this project
 
-Follow these conventions to ensure consistency and maintainability across all services in this project.
+## General Rules
+- Don't create code not explicitly asked for, such as:
+    - Custom exception classes
+    - Utility classes
+- When generating code from OpenAPI specifications, always follow the patterns and conventions outlined in this document
+- Never deviate from these unless explicitly instructed to do so
+- Never create custom utility classes or exception classes unless explicitly requested
 
-Don't create code I have not asked for, such as custom exception classes or utility classes
+## Exception Handling
+- Never create custom Exception classes for REST controllers
+- Instead, use the standard exceptions provided by Java and Spring, such as:
+    - `IllegalArgumentException`
+    - `UnsupportedOperationException`
 
-When generating code from OpenAPI specifications, always follow the patterns and conventions outlined in this document.
-Never deviate from these unless explicitly instructed to do so.
-Never create custom utility classes or exception classes unless explicitly requested.
-Never create custom Exception classes for REST controllers. Instead, use the standard exceptions provided by java and Spring, such as `IllegalArgumentException`, `UnsupportedOperationException`
+## OpenAPI Specifications
+- Always use the provided OpenAPI specification files for code generation
+- Never create or modify OpenAPI specifications unless explicitly instructed to do so
+- Never change the OpenAPI specification file name, content, or location, unless explicitly told to do so
 
-Always use the provided OpenAPI specification files for code generation.
-Never create or modify OpenAPI specifications unless explicitly instructed to do so.
-
-Create REST controllers that implement the generated OpenAPI interfaces, following the provided patterns.
-Always also create a ControllerWebIntegrationTest as specified in this document.
-
-Never change the openApi specification file name, content or location, unless explicitly told to do so
+## REST Controllers
+- Create REST controllers that implement the generated OpenAPI interfaces, following the provided patterns
+- Always also create a ControllerWebIntegrationTest as specified in this document
 
 ## OpenAPI Code Generation Setup
 
@@ -110,15 +118,15 @@ public class {YourApiName}Controller implements {GeneratedApiInterface} {
 
 ### Key Conventions
 
-1. **Package**: All controllers are in `no.experis.bgo.app.controller` (replace `app` with your application name)
-2. **Annotations**:
+- **Package**: All controllers are in `no.experis.bgo.app.controller` (replace `app` with your application name)
+- **Annotations**:
     - `@Slf4j` from Lombok for logging
     - `@RestController` for Spring REST controller
     - `@RequiredArgsConstructor` from Lombok for dependency injection
-3. **Interface Implementation**: Controllers must implement the generated OpenAPI interface
-4. **Logging**: Use `log.trace()` for method entry with parameters
-5. **Default Implementation**: All methods should throw `UnsupportedOperationException` initially
-6. **Documentation**: Add comprehensive Javadoc for the class
+- **Interface Implementation**: Controllers must implement the generated OpenAPI interface
+- **Logging**: Use `log.trace()` for method entry with parameters
+- **Default Implementation**: All methods should throw `UnsupportedOperationException` initially
+- **Documentation**: Add comprehensive Javadoc for the class
 
 ### Complete Controller Example
 
@@ -199,8 +207,8 @@ public class DataConnectorController implements ConnectorApi {
 ### Purpose and Usage
 
 Mapper classes are used to convert between:
-1. **API Models** (generated from OpenAPI specifications) → **Domain Entities** (JPA entities)
-2. **Domain Entities** → **API Models** (for responses)
+- **API Models** (generated from OpenAPI specifications) → **Domain Entities** (JPA entities)
+- **Domain Entities** → **API Models** (for responses)
 
 Always create mapper classes when you need to transform data between the API layer and the domain/persistence layer.
 
@@ -321,12 +329,12 @@ public class {EntityName}Mapper {
 
 ### Key Conventions
 
-1. **Package**: All mappers are in `no.experis.bgo.app.mapper` (replace `app` with your application name)
-2. **Naming**: `{EntityName}Mapper` (e.g., `InvoiceMapper`, `CustomerMapper`)
-3. **Static Methods**: All mapper methods are static utility methods
-4. **Null Safety**: Always check for null inputs and return appropriate values
-5. **Annotations**: Use `@Slf4j` for logging when needed
-6. **Method Naming**:
+- **Package**: All mappers are in `no.experis.bgo.app.mapper` (replace `app` with your application name)
+- **Naming**: `{EntityName}Mapper` (e.g., `InvoiceMapper`, `CustomerMapper`)
+- **Static Methods**: All mapper methods are static utility methods
+- **Null Safety**: Always check for null inputs and return appropriate values
+- **Annotations**: Use `@Slf4j` for logging when needed
+- **Method Naming**:
     - `toApiModel()` - converts entity to API model
     - `toEntity()` - converts API model to entity
     - `toApiModelList()` - converts list of entities to API models
@@ -484,15 +492,15 @@ public class InvoiceController implements InvoiceApi {
 
 ### Mapper Best Practices
 
-1. **Immutability**: API models (from OpenAPI) are often immutable with builder pattern, entities are mutable POJOs
-2. **Null Handling**: Always check for null inputs and return appropriate defaults
-3. **Field Mapping**: Map all relevant fields between models, handle type conversions (e.g., enum values)
-4. **Timestamps**: Don't map timestamps from API model to entity during creation - let the database handle these
-6. **Collections**: Provide list conversion methods for batch operations
-7. **Documentation**: Document all methods with clear Javadoc
-8. **No Business Logic**: Mappers should only perform data transformation, no business logic
-9. **Enum Handling**: Convert between API enums and entity string/enum values appropriately
-10. **Validation**: Don't add validation in mappers - handle this in controllers or service layer
+- **Immutability**: API models (from OpenAPI) are often immutable with builder pattern, entities are mutable POJOs
+- **Null Handling**: Always check for null inputs and return appropriate defaults
+- **Field Mapping**: Map all relevant fields between models, handle type conversions (e.g., enum values)
+- **Timestamps**: Don't map timestamps from API model to entity during creation - let the database handle these
+- **Collections**: Provide list conversion methods for batch operations
+- **Documentation**: Document all methods with clear Javadoc
+- **No Business Logic**: Mappers should only perform data transformation, no business logic
+- **Enum Handling**: Convert between API enums and entity string/enum values appropriately
+- **Validation**: Don't add validation in mappers - handle this in controllers or service layer
 
 ### Mapper Testing
 
@@ -983,25 +991,25 @@ components:
 
 ### Code Quality
 
-1. **Logging**: Always use SLF4J with appropriate log levels
-2. **Documentation**: Add Javadoc for all public methods and classes
-3. **Error Handling**: Handle exceptions appropriately, never swallow them silently
-4. **Validation**: Validate input parameters and request bodies
-5. **Performance**: Use appropriate HTTP status codes and response types
+- **Logging**: Always use SLF4J with appropriate log levels
+- **Documentation**: Add Javadoc for all public methods and classes
+- **Error Handling**: Handle exceptions appropriately, never swallow them silently
+- **Validation**: Validate input parameters and request bodies
+- **Performance**: Use appropriate HTTP status codes and response types
 
 ### Security Considerations
 
-1. **Input Validation**: Always validate and sanitize input data
-2. **Error Messages**: Don't expose sensitive information in error messages
-3. **Authentication**: Implement appropriate authentication and authorization
-4. **CORS**: Configure CORS policies appropriately
+- **Input Validation**: Always validate and sanitize input data
+- **Error Messages**: Don't expose sensitive information in error messages
+- **Authentication**: Implement appropriate authentication and authorization
+- **CORS**: Configure CORS policies appropriately
 
 ### Testing
 
-1. **Test Coverage**: Aim for high test coverage of all endpoints
-2. **Integration Tests**: Test the complete request-response cycle
-3. **Error Scenarios**: Test all error conditions and edge cases
-4. **Performance**: Include performance tests for critical endpoints
+- **Test Coverage**: Aim for high test coverage of all endpoints
+- **Integration Tests**: Test the complete request-response cycle
+- **Error Scenarios**: Test all error conditions and edge cases
+- **Performance**: Include performance tests for critical endpoints
 
 ---
 

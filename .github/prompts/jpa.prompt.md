@@ -2,16 +2,14 @@
 mode: "agent"
 description: 'This context file provides detailed guidance for creating JPA entities, database schemas, repositories, and associated tests following established coding patterns and conventions.'
 ---
-Always create JPA entities, repositories, and tests in the current context.
-Create SQL to define the database schema, including tables, sequences, and constraints
-All enums should be in separate java classes in the model package.
-
-Follow the patterns and conventions outlined below.
-
-When done validate that all the points under "Checklist for New JPA Entities" are all checked off.
-
 
 ## JPA Entity Patterns
+
+### Key Requirements
+- Follow the entity, repository, and test patterns defined in this document
+- Create database schema migrations with proper sequences and constraints
+- Implement enums as separate classes in the model package
+- Validate all items in the "Checklist for New JPA Entities" before completion
 
 ### Entity Class Structure
 
@@ -51,23 +49,23 @@ public class EntityName {
 
 ### Key Conventions
 
-1. **Package**: All entities are in `no.experis.bgo.app.model` (replace `app` with your application name)
-2. **Annotations**:
+- **Package**: All entities are in `no.experis.bgo.app.model` (replace `app` with your application name)
+- **Annotations**:
     - `@Data` from Lombok for getters/setters
     - `@Entity(name = "TABLE_NAME")` with uppercase table name
     - `@Accessors(fluent = true, chain = true)` for fluent API
-3. **Primary Keys**:
+- **Primary Keys**:
     - Use `@GeneratedValue(strategy = GenerationType.SEQUENCE)`
     - Define custom sequence generator with pattern: `table_name_id_seq`
     - Use `Long` type for IDs (except UUIDs where appropriate)
-4. **Timestamps**:
+- **Timestamps**:
     - `@CreationTimestamp` for `created` field
     - `@UpdateTimestamp` for `updated` field
     - Use `LocalDateTime` type
-5. **Enums**:
+- **Enums**:
     - Use `@Enumerated(EnumType.STRING)` for enum fields
     - Create separate enum classes in the model package
-6. **DomainEntity Name**:
+- **DomainEntity Name**:
     - The name of the entity class should be in PascalCase and reflect the table name in singular form appended with "Entity" (e.g., `ExpectedEventEntity` for `EXPECTED_EVENT` table)
 
 ### Entity Examples
@@ -233,17 +231,17 @@ public interface EntityNameRepository extends JpaRepository<EntityName, Long>, J
 
 ### Repository Conventions
 
-1. **Package**: `no.experis.bgo.app.repository` (replace `app` with your application name)
-2. **Naming**: `{EntityName}Repository`
-3. **Annotations**: Always use `@Repository`
-4. **Inheritance**:
+- **Package**: `no.experis.bgo.app.repository` (replace `app` with your application name)
+- **Naming**: `{EntityName}Repository`
+- **Annotations**: Always use `@Repository`
+- **Inheritance**:
     - Extend `JpaRepository<Entity, IdType>`
     - Add `JpaSpecificationExecutor<Entity>` for complex queries
-5. **Query Methods**:
+- **Query Methods**:
     - Use Spring Data naming conventions
     - Add `@Query` for complex JPQL queries
     - Use `@Param` for named parameters
-6. **Documentation**: Add Javadoc for complex methods
+- **Documentation**: Add Javadoc for complex methods
 
 ### Repository Examples
 
@@ -420,10 +418,3 @@ When creating a new JPA entity, repository, and tests:
 - [ ] Add test data SQL files if needed
 - [ ] Create test data builders for complex entities
 - [ ] Add integration tests if service interacts with external systems
-
-### Additional Considerations
-- [ ] Update any related services to handle the new entity
-- [ ] Add error handling if the entity can fail processing
-- [ ] Update API controllers if REST endpoints are required
-- [ ] Add metrics/monitoring if the entity represents business events
-

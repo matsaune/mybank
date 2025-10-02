@@ -5,13 +5,12 @@ description: 'This context file provides detailed guidance for creating Service 
 
 # Service Layer Development Context
 
-Always create Service classes, integration tests, and mock tests in the current context.
-Follow the patterns and conventions outlined below.
 
-**Important**: Replace `app` in all package names with your specific application name (e.g., `mybank`, `trading`, `risk`, etc.).
-For example: `no.experis.bgo.app.service` becomes `no.experis.bgo.mybank.service` for the mybank project.
-
-When done, validate that all the points under "Checklist for New Service Classes" are all checked off.
+- **Important**: Replace `app` in all package names with your specific application name (e.g., `mybank`, `trading`, `risk`, etc.)
+    - Example: `no.experis.bgo.app.service` becomes `no.experis.bgo.mybank.service` for the mybank project
+    - - 
+- Follow the patterns and conventions outlined below
+- When done, validate that all the points under "Checklist for New Service Classes" are all checked off
 
 ## Service Class Patterns
 
@@ -129,28 +128,28 @@ public class EntityNameService {
 
 ### Key Conventions
 
-1. **Package**: All services are in `no.experis.bgo.app.service` (replace `app` with your application name)
-2. **Annotations**:
+- **Package**: All services are in `no.experis.bgo.app.service` (replace `app` with your application name)
+- **Annotations**:
     - `@Slf4j` from Lombok for logging
     - `@Service` for Spring service component
     - `@RequiredArgsConstructor` from Lombok for dependency injection
-3. **Transaction Management**:
+- **Transaction Management**:
     - Use `@Transactional` for write operations
     - Use `@Transactional(readOnly = true)` for read-only operations
-4. **CRUD Methods**: Always implement standard CRUD operations when creating a service for a domain object:
+- **CRUD Methods**: Always implement standard CRUD operations when creating a service for a domain object:
     - `create(Entity entity)` - Create new entity
     - `findById(ID id)` - Find by primary key
     - `findAll()` - List all entities
     - `update(ID id, Entity entity)` - Update existing entity
     - `deleteById(ID id)` - Delete by primary key
-5. **Logging**:
+- **Logging**:
     - Use `log.debug()` for method entry
     - Use `log.info()` for significant business events
     - Use `log.error()` for error scenarios
-6. **Error Handling**:
+- **Error Handling**:
     - Throw `IllegalArgumentException` for invalid input or entity not found
     - Never return null, use Optional for single entity queries
-7. **Documentation**: Add comprehensive Javadoc for all public methods
+- **Documentation**: Add comprehensive Javadoc for all public methods
 
 ### Service with Multiple Dependencies
 
