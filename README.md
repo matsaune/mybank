@@ -71,7 +71,7 @@ SOMETHING
 
 ### 3. Service Layer
 ```
-SOMETHING
+For the domain entity CustomerEntity create a service class using the instructions in #file:service.prompt.md  and #file:code.instructions.md. Analyse these files thoroughly before implementing code as specified
 ```
 
 ### 4. OpenAPI Endpoint and Controller
