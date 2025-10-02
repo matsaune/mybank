@@ -61,7 +61,7 @@ The following base prompts are used with GitHub Copilot to guide development:
 
 ### 1. Entity Creation
 ```
-SOMETHING
+Create a new domain object named Customer with all required code, test and configuration as stated in #file:jpa.prompt.md using genreal guidlines in  #file:code.instructions.md  Analyse these file thoroughly. This application is a demo bank application so only define required fields on the Customer object
 ```
 
 ### 2. Repository Layer with Spring Data JPA and Domain object

@@ -1,0 +1,23 @@
+CREATE SEQUENCE customer_id_seq START 1;
+
+CREATE TABLE CUSTOMER (
+    ID BIGINT PRIMARY KEY DEFAULT nextval('customer_id_seq'),
+    FIRST_NAME VARCHAR(100) NOT NULL,
+    LAST_NAME VARCHAR(100) NOT NULL,
+    EMAIL VARCHAR(255) NOT NULL UNIQUE,
+    PERSONAL_ID_NUMBER VARCHAR(20) NOT NULL UNIQUE,
+    PHONE_NUMBER VARCHAR(20) NOT NULL,
+    CREATED TIMESTAMP NOT NULL DEFAULT NOW(),
+    UPDATED TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+-- Add comments
+COMMENT ON TABLE CUSTOMER IS 'Stores customer information for the banking application';
+COMMENT ON COLUMN CUSTOMER.ID IS 'Primary key identifier';
+COMMENT ON COLUMN CUSTOMER.FIRST_NAME IS 'Customer first name';
+COMMENT ON COLUMN CUSTOMER.LAST_NAME IS 'Customer last name';
+COMMENT ON COLUMN CUSTOMER.EMAIL IS 'Customer email address - must be unique';
+COMMENT ON COLUMN CUSTOMER.PERSONAL_ID_NUMBER IS 'National ID number or similar identifier - must be unique';
+COMMENT ON COLUMN CUSTOMER.PHONE_NUMBER IS 'Customer contact phone number';
+COMMENT ON COLUMN CUSTOMER.CREATED IS 'Timestamp when the record was created';
+COMMENT ON COLUMN CUSTOMER.UPDATED IS 'Timestamp when the record was last updated';
